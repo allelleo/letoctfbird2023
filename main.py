@@ -15,11 +15,13 @@ blue_dark = (58, 45, 207)
 violet = (209, 45, 246)
 pygame.init()
 
-surfaceWidth = 1240
+surfaceWidth = 1500
 surfaceHeight = 1000
 surface = pygame.display.set_mode((surfaceWidth, surfaceHeight))
 pygame.display.set_caption('LetoCTF - i believe i can fly!')
 clock = pygame.time.Clock()
+
+pygame.event.set_blocked([pygame.KMOD_CTRL, pygame.KMOD_SHIFT, pygame.K_LSHIFT, pygame.K_RSHIFT, pygame.KMOD_ALT, pygame.KMOD_LALT, pygame.KMOD_CTRL])
 
 class ButtonMove:
     buttons = list('qdxyhmocg')
@@ -47,7 +49,6 @@ class Bird:
         self.img_height = self.img.get_size()[1]
         self.jump = 20
         self.gravity = 5
-        self.die_sound = pygame.mixer.Sound(os.path.join('sounds', 'die.mp3'))
 
     def draw(self):
         surface.blit(self.img, (self.x, self.y))
@@ -257,7 +258,6 @@ class NoisyBird:
         self.game_show_screen('LetoCTF', 'Press any key to start game')
 
     def gameOver(self):
-        NoisyBird.bird.die_sound.play()
         self.game_over_screen()
 
     def play(self):
